@@ -7,10 +7,21 @@
     "node": ">=10"
   },
   "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "ethers": "^5.1.4",
+    "hardhat": "^2.2.1",
+    "prettier": "^2.3.0",
+    "prettier-plugin-solidity": "*",
+    "solhint": "^3.3.4",
+    "solhint-plugin-prettier": "^0.0.5"
   },
   "dependencies": {
+    "@uniswap/v3-core": "^1.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "format": "prettier --write \"contracts/**/*.sol\" \"**/*.js\" \"**/*.md\" \"**/*.yml\" \"**/*.json\"",
+    "lint": "solhint \"contracts/*.sol\" && solhint \"contracts/test-helpers/*.sol\"",
+    "compile": "hardhat compile",
+    "test": "hardhat test"
   }
 }
