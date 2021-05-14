@@ -8,7 +8,7 @@ import './libraries/PoolAddress.sol';
 contract UniswapV3CrossPoolOracle {
     address public immutable uniswapV3Factory;
     address public immutable weth;
-    uint24 public defaultFee;
+    uint24 public immutable defaultFee;
 
     constructor(
         address _uniswapV3Factory,
