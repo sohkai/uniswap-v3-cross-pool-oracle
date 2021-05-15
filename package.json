@@ -6,17 +6,19 @@
   "engines": {
     "node": ">=10"
   },
+  "dependencies": {
+    "@uniswap/v3-core": "^1.0.0"
+  },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-etherscan": "^2.1.2",
     "ethers": "^5.1.4",
     "hardhat": "^2.2.1",
+    "hardhat-local-networks-config-plugin": "^0.0.5",
     "prettier": "^2.3.0",
     "prettier-plugin-solidity": "*",
     "solhint": "^3.3.4",
     "solhint-plugin-prettier": "^0.0.5"
-  },
-  "dependencies": {
-    "@uniswap/v3-core": "^1.0.0"
   },
   "scripts": {
     "format": "prettier --write \"contracts/**/*.sol\" \"**/*.js\" \"**/*.md\" \"**/*.yml\" \"**/*.json\"",
