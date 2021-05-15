@@ -88,15 +88,10 @@ contract UniswapV3CrossPoolOracle {
         uint32 _period,
         uint256 _baseAmount
     ) internal view returns (uint256 quoteAmount) {
+        address pool =
+            PoolAddress.computeAddress(uniswapV3Factory, PoolAddress.getPoolKey(_baseToken, _quoteToken, _poolFee));
         // Leave twapTick as a int256 to avoid solidity casting
-        int256 twapTick =
-            OracleLibrary.consult(
-                uniswapV3Factory,
-                _baseToken, // lib will re-order base/quote token to token0/token1
-                _quoteToken, // lib will re-order base/quote token to token0/token1
-                _poolFee,
-                _period
-            );
+        int256 twapTick = OracleLibrary.consult(pool, _period);
         return
             OracleLibrary.getQuoteAtTick(
                 int24(twapTick), // can assume safe being result from consult()
