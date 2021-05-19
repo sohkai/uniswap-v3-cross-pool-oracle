@@ -62,15 +62,20 @@ contract UniswapV3CrossPoolOracle {
         uint24[2] memory _poolFees
     ) public view returns (uint256 amountOut) {
         require(_poolFees.length <= 2, 'uniV3CPOracle: bad fees length');
-        bool usingDefaultFee0 = (_poolFees[0] == 0 || _poolFees[0] == defaultFee);
-        bool usingDefaultFee1 = (_poolFees[1] == 0 || _poolFees[1] == defaultFee);
+        uint24 pool0Fee = _poolFees[0];
+        if (pool0Fee == 0) {
+            pool0Fee = defaultFee;
+        }
+        uint24 pool1Fee = _poolFees[1];
+        if (pool1Fee == 0) {
+            pool1Fee = defaultFee;
+        }
 
-        if (_routeThruToken == weth && usingDefaultFee0 && usingDefaultFee1) {
+        if (_routeThruToken == weth && pool0Fee == defaultFee && pool1Fee == defaultFee) {
             // Same as basic assetToAsset()
             return assetToAsset(_tokenIn, _amountIn, _tokenOut, _twapPeriod);
         }
 
-        uint24 pool0Fee = usingDefaultFee0 ? defaultFee : _poolFees[0];
         if (_tokenIn == _routeThruToken || _tokenOut == _routeThruToken) {
             // Can skip routeThru token
             return _fetchTwap(_tokenIn, _tokenOut, pool0Fee, _twapPeriod, _amountIn);
@@ -78,7 +83,6 @@ contract UniswapV3CrossPoolOracle {
 
         // Cross pools through routeThru
         uint256 routeThruAmount = _fetchTwap(_tokenIn, _routeThruToken, pool0Fee, _twapPeriod, _amountIn);
-        uint24 pool1Fee = usingDefaultFee1 ? defaultFee : _poolFees[1];
         return _fetchTwap(_routeThruToken, _tokenOut, pool1Fee, _twapPeriod, routeThruAmount);
     }
 
