@@ -2,7 +2,7 @@
 
 > 🚨 Security status: unaudited
 
-A UniswapV3 TWAP oracle with the ability to query asset prices across an intermediate liquidity pool (e.g. WBTC -> WETH -> USDC).
+A UniswapV3 TWAP oracle with the ability to query asset prices across an intermediate liquidity pool (e.g. `WBTC -> WETH -> USDC`).
 
 Includes a "hard mode" `assetToAsset()` variant that allows you to specify:
 
@@ -21,9 +21,9 @@ All other exposed functionality default to the stated defaults above.
 
 Example `assetToAsset()` query:
 
-- `baseToken`: [`0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599`](https://etherscan.io/address/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599) (WBTC)
-- `quoteToken`: [`0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`](https://etherscan.io/address/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48) (USDC)
-- `baseAmount`: `100000000` (1 WBTC; 8 decimals)
-- `period`: `1800` (30min)
+- `tokenIn`: [`0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599`](https://etherscan.io/address/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599) (WBTC)
+- `amountIn`: `100000000` (1 WBTC; 8 decimals)
+- `tokenOut`: [`0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`](https://etherscan.io/address/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48) (USDC)
+- `twapPeriod`: `1800` (30min)
 
 Should output ~`450000000` (4500) as the WBTC/USDC price on 05-17-2021.
