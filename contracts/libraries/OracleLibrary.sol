@@ -6,6 +6,7 @@ import '@uniswap/v3-core/contracts/libraries/FullMath.sol';
 import '@uniswap/v3-core/contracts/libraries/TickMath.sol';
 import '@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol';
 import '@uniswap/v3-core/contracts/libraries/LowGasSafeMath.sol';
+import '../libraries/PoolAddress.sol';
 
 /// @title Oracle library
 /// @notice Provides functions to integrate with V3 pool oracle
@@ -16,13 +17,12 @@ library OracleLibrary {
     /// @return timeWeightedAverageTick The time-weighted average tick from (block.timestamp - period) to block.timestamp
     function consult(address pool, uint32 period) internal view returns (int24 timeWeightedAverageTick) {
         require(period != 0, 'BP');
-        IUniswapV3Pool oracle = IUniswapV3Pool(pool);
 
         uint32[] memory secondAgos = new uint32[](2);
         secondAgos[0] = period;
         secondAgos[1] = 0;
 
-        (int56[] memory tickCumulatives, ) = oracle.observe(secondAgos);
+        (int56[] memory tickCumulatives, ) = IUniswapV3Pool(pool).observe(secondAgos);
         int56 tickCumulativesDelta = tickCumulatives[1] - tickCumulatives[0];
 
         timeWeightedAverageTick = int24(tickCumulativesDelta / period);
@@ -39,7 +39,7 @@ library OracleLibrary {
     /// @return quoteAmount Amount of quoteToken received for baseAmount of baseToken
     function getQuoteAtTick(
         int24 tick,
-        uint256 baseAmount,
+        uint128 baseAmount,
         address baseToken,
         address quoteToken
     ) internal pure returns (uint256 quoteAmount) {

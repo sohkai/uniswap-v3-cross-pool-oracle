@@ -3,6 +3,7 @@ pragma solidity =0.7.6;
 
 import './libraries/OracleLibrary.sol';
 import './libraries/PoolAddress.sol';
+import './libraries/SafeUint128.sol';
 
 /// @title UniswapV3 oracle with ability to query across an intermediate liquidity pool
 contract UniswapV3CrossPoolOracle {
@@ -95,7 +96,7 @@ contract UniswapV3CrossPoolOracle {
         return
             OracleLibrary.getQuoteAtTick(
                 int24(twapTick), // can assume safe being result from consult()
-                _baseAmount,
+                SafeUint128.toUint128(_baseAmount),
                 _baseToken,
                 _quoteToken
             );
