@@ -77,14 +77,14 @@ contract UniswapV3CrossPoolOracle {
             return assetToAsset(_tokenIn, _amountIn, _tokenOut, _twapPeriod);
         }
 
-        if (_tokenIn == _routeThruToken || _tokenOut == _routeThruToken) {
+        if (_tokenIn == routeThruToken || _tokenOut == routeThruToken) {
             // Can skip routeThru token
             return _fetchTwap(_tokenIn, _tokenOut, pool0Fee, _twapPeriod, _amountIn);
         }
 
         // Cross pools through routeThru
-        uint256 routeThruAmount = _fetchTwap(_tokenIn, _routeThruToken, pool0Fee, _twapPeriod, _amountIn);
-        return _fetchTwap(_routeThruToken, _tokenOut, pool1Fee, _twapPeriod, routeThruAmount);
+        uint256 routeThruAmount = _fetchTwap(_tokenIn, routeThruToken, pool0Fee, _twapPeriod, _amountIn);
+        return _fetchTwap(routeThruToken, _tokenOut, pool1Fee, _twapPeriod, routeThruAmount);
     }
 
     function _fetchTwap(
