@@ -15,7 +15,7 @@ All other exposed functionality default to the stated defaults above.
 
 ## Deployments
 
-- Mainnet: [`0x42253680cca5f10b4579801ad0935ee697f46e4f`](https://etherscan.io/address/0x42253680cca5f10b4579801ad0935ee697f46e4f#readContract)
+- Mainnet: [`0x0F1f5A87f99f0918e6C81F16E59F3518698221Ff`](https://etherscan.io/address/0x0f1f5a87f99f0918e6c81f16e59f3518698221ff#readContract)
 
 ## Usage
 

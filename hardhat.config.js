@@ -3,7 +3,15 @@ require("@nomiclabs/hardhat-etherscan");
 require('hardhat-local-networks-config-plugin')
 
 module.exports = {
-  solidity: '0.7.6',
+  solidity: {
+    version: '0.7.6',
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 999999
+      }
+    }
+  },
   networks: {
     hardhat: {},
     mainnet: {
