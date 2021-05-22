@@ -70,8 +70,9 @@ contract UniswapV3CrossPoolOracle {
         if (pool1Fee == 0) {
             pool1Fee = defaultFee;
         }
+        address routeThruToken = _routeThruToken == address(0) ? weth : _routeThruToken;
 
-        if (_routeThruToken == weth && pool0Fee == defaultFee && pool1Fee == defaultFee) {
+        if (routeThruToken == weth && pool0Fee == defaultFee && pool1Fee == defaultFee) {
             // Same as basic assetToAsset()
             return assetToAsset(_tokenIn, _amountIn, _tokenOut, _twapPeriod);
         }
