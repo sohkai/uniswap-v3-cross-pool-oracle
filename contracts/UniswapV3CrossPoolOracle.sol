@@ -25,16 +25,16 @@ contract UniswapV3CrossPoolOracle {
         address _tokenIn,
         uint256 _amountIn,
         uint32 _twapPeriod
-    ) public view returns (uint256 ethAmount) {
+    ) public view returns (uint256 ethAmountOut) {
         return _fetchTwap(_tokenIn, weth, defaultFee, _twapPeriod, _amountIn);
     }
 
     function ethToAsset(
-        uint256 _ethAmount,
+        uint256 _ethAmountIn,
         address _tokenOut,
         uint32 _twapPeriod
     ) public view returns (uint256 amountOut) {
-        return _fetchTwap(weth, _tokenOut, defaultFee, _twapPeriod, _ethAmount);
+        return _fetchTwap(weth, _tokenOut, defaultFee, _twapPeriod, _ethAmountIn);
     }
 
     function assetToAsset(
@@ -53,7 +53,7 @@ contract UniswapV3CrossPoolOracle {
         }
     }
 
-    function assetToAssetThroughRoute(
+    function assetToAssetThruRoute(
         address _tokenIn,
         uint256 _amountIn,
         address _tokenOut,
