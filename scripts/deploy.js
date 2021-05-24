@@ -35,12 +35,8 @@ async function confirm() {
 
 async function deploy() {
   console.log('Deploying...')
-  const UniV3Oracle = await hre.ethers.getContractFactory("UniswapV3CrossPoolOracle");
-  const uniV3Oracle = await UniV3Oracle.deploy(
-    config.uniswapV3Factory,
-    config.weth,
-    config.defaultFee
-  );
+  const UniV3Oracle = await hre.ethers.getContractFactory('UniswapV3CrossPoolOracle')
+  const uniV3Oracle = await UniV3Oracle.deploy(config.uniswapV3Factory, config.weth, config.defaultFee)
 
   await uniV3Oracle.deployed()
   console.log(`Deployed to address: ${uniV3Oracle.address}`)
@@ -51,13 +47,9 @@ async function deploy() {
 async function verify(uniV3Oracle) {
   console.log()
   console.log('Verifying on Etherscan...')
-  await hre.run("verify:verify", {
+  await hre.run('verify:verify', {
     address: uniV3Oracle.address,
-    constructorArguments: [
-      config.uniswapV3Factory,
-      config.weth,
-      config.defaultFee
-    ],
+    constructorArguments: [config.uniswapV3Factory, config.weth, config.defaultFee],
   })
 }
 
@@ -80,7 +72,7 @@ async function main() {
 // Recommended pattern
 main()
   .then(() => process.exit(0))
-  .catch(error => {
-    console.error(error);
-    process.exit(1);
-  });
+  .catch((error) => {
+    console.error(error)
+    process.exit(1)
+  })
